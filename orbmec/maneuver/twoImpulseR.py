@@ -1,3 +1,5 @@
+import numpy as np
+
 class TwoImpulseR:
 
     def __init__(self, position_target, velocity_target, position_chaser, velocity_chaser, t):
@@ -5,7 +7,7 @@ class TwoImpulseR:
         self.velocity_target = velocity_target
         self.position_chaser = position_chaser
         self.velocity_chaser = velocity_chaser
-        self.time = t
+        self.t = t
 
         self.i = position_target / np.linalg.norm(position_target)
         self.j = velocity_target / np.linalg.norm(velocity_target)
@@ -22,10 +24,10 @@ class TwoImpulseR:
         self.dr0 = self.QXx @ self.dr.reshape(-1, 1)
         self.dv0_ = self.QXx @ self.dv.reshape(-1, 1)
 
-        self.phi_rr = self.__rr(n, t)
-        self.phi_rv = self.__rv(n, t)
-        self.phi_vr = self.__vr(n, t)
-        self.phi_vv = self.__vv(n, t)
+        self.phi_rr = self.__rr(self.n, self.t)
+        self.phi_rv = self.__rv(self.n, self.t)
+        self.phi_vr = self.__vr(self.n, self.t)
+        self.phi_vv = self.__vv(self.n, self.t)
 
         self.dv0p = - np.linalg.inv(self.phi_rv) @ self.phi_rr @ self.dr0
         self.dvf_ = (self.phi_vr @ self.dr0) + self.phi_vv @ self.dv0p
