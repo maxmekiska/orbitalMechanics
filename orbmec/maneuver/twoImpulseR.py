@@ -54,6 +54,58 @@ class TwoImpulseR:
                       [0, 0, np.cos(n * t)]])
         return matrix
 
+    @property
+    def QXx_value(self):
+        return self.QXx
+
+    @property
+    def n_value(self):
+        return self.n
+
+    @property
+    def Wss_value(self):
+        return Wss
+
+    @property
+    def dr_value(self):
+        return self.dr
+
+    @property
+    def dv_value(self):
+        return self.drv
+
+    @property
+    def dr0_value(self):
+        return self.dr0
+
+    @property
+    def dv0_value(self):
+        return self.dv0_
+
+    @property
+    def phi_rr_value(self):
+        return self.phi_rr
+
+    @property
+    def phi_rv_value(self):
+        return self.phi_rv
+
+    @property
+    def phi_vr_value(self):
+        return self.phi_vr
+
+    @property
+    def phi_vv_value(self):
+        return self.phi_rr
+
+    @property
+    def dv0p_value(self):
+        return self.dv0p
+
+    @property
+    def dvf_value(self):
+        return self.dvf_
+
     def deltav_start(self):
         return  self.dv0p - self.dv0_
 
