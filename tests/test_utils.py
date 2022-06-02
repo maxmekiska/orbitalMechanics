@@ -2,7 +2,7 @@ import numpy as np
 import unittest
 
 
-from orbmec.utils.geo_equatorial_frame import *
+from orbmec.utils.helper import *
 
 class TestUtils(unittest.TestCase):
     omega = 40
