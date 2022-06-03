@@ -16,10 +16,10 @@ class TestUtils(unittest.TestCase):
     correct_velocity = np.array([[-10.38598762], [ -4.77192164], [  1.743875  ]])
 
     def test_position(self):
-        np.testing.assert_allclose(position(TestUtils.omega, TestUtils.i, TestUtils.w, TestUtils.h, TestUtils.mu, TestUtils.e, TestUtils.phi), TestUtils.correct_position)
+        np.testing.assert_allclose(geo_equatorial_frame_position(TestUtils.omega, TestUtils.i, TestUtils.w, TestUtils.h, TestUtils.mu, TestUtils.e, TestUtils.phi), TestUtils.correct_position)
 
     def test_velocity(self):
-        np.testing.assert_allclose(velocity(TestUtils.omega, TestUtils.i, TestUtils.w, TestUtils.h, TestUtils.mu, TestUtils.e, TestUtils.phi), TestUtils.correct_velocity)
+        np.testing.assert_allclose(geo_equatorial_frame_velocity(TestUtils.omega, TestUtils.i, TestUtils.w, TestUtils.h, TestUtils.mu, TestUtils.e, TestUtils.phi), TestUtils.correct_velocity)
 
 if __name__ == '__main__':
     unittest.main()
