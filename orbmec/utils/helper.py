@@ -113,7 +113,7 @@ def apogee_rad(h_mag, mu, e_mag):
     return ((h_mag**2)/mu) * (1/(1 + e_mag * np.cos(np.deg2rad(180))))
 
 def semimajor(perigee, apogee):
-    return 0.5 * (r_p + r_a)
+    return 0.5 * (perigee + apogee)
 
 def period(mu, semimajor):
-    return (2*np.pi/np.sqrt(mu))* a**(3/2) * (1/3600)
+    return (2*np.pi/np.sqrt(mu))* semimajor**(3/2) * (1/3600)
