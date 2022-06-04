@@ -3,6 +3,7 @@ import unittest
 
 
 from orbmec.maneuver.twoImpulseR import *
+from orbmec.maneuver.hohmann import *
 
 class TestManeuver(unittest.TestCase):
 
@@ -13,11 +14,14 @@ class TestManeuver(unittest.TestCase):
     t = 28800
 
     test_obj = TwoImpulseR(position_target, velocity_target, position_chaser, velocity_chaser, t)
+    test_obj2 = Hohmann(800, 480, 16000, 16000)
 
     correct_deltav_start = np.array([[ 0.02930887], [-0.06676299], [ 0.0129857 ]])
     correct_deltav_end = np.array([[0.02581208], [0.00047124], [0.02447875]])
     correct_relative_position = np.array([[20.02902597], [19.90929503], [20.0173155 ]])
     correct_totaldeltav = 109.6369494855627
+    correct_deltav = 3052.2018535720463
+    correct_deltam = 1291.2664959148321
 
     def test_deltav_start(self):
         np.testing.assert_allclose(TestManeuver.test_obj.deltav_start(), TestManeuver.correct_deltav_start,  rtol=0.005, atol=0.005)
@@ -31,6 +35,11 @@ class TestManeuver(unittest.TestCase):
     def test_totaldeltav(self):
         self.assertEqual(TestManeuver.test_obj.totaldeltav(), TestManeuver.correct_totaldeltav)
 
+    def test_delta_v(self):
+        self.assertEqual(TestManeuver.test_obj2.delta_v(), TestManeuver.correct_deltav)
+
+    def test_delta_m(self):
+        self.assertEqual(TestManeuver.test_obj2.delta_m(2000, 300, 9.807), TestManeuver.correct_deltam)
 
 if __name__ == '__main__':
     unittest.main()
