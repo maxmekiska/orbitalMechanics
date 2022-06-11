@@ -1,6 +1,9 @@
 import numpy as np
 from orbmec.utils.transformMatrix import *
 
+def angular_mo(mu, apogee, perigee):
+    return np.sqrt( 2 * mu) * np.sqrt((apogee*perigee)/(apogee+perigee))
+
 def QxX(omega, i, w):
     QXx = R_clockwise_yaw(w) @ R_clockwise_roll(i) @ R_clockwise_yaw(omega)
     result = QXx.transpose()

@@ -1,4 +1,5 @@
 import numpy as np
+from orbmec.utils.helper import angular_mo
 
 class Hohmann:
 
@@ -9,10 +10,10 @@ class Hohmann:
         self.rfp = rfp + planet_rad
         self.planet_rad = planet_rad
         self.mu = mu
-                
-        self.h1 = np.sqrt(2*self.mu)*np.sqrt((self.ria*self.rip)/(self.ria + self.rip))
-        self.h2 = np.sqrt(2*self.mu)*np.sqrt((self.rfa*self.rip)/(self.rfa + self.rip))
-        self.h3 = np.sqrt(2*self.mu)*np.sqrt((self.rfa*self.rfp)/(self.rfa + self.rfp))
+
+        self.h1 = angular_mo(mu, self.ria, self.rip)
+        self.h2 = angular_mo(mu, self.rfa, self.rip)
+        self.h3 = angular_mo(mu, self.rfa, self.rfp)
 
         self.va1 = self.h1 / self.rip
         self.va2 = self.h2 / self.rip
