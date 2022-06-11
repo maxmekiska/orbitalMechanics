@@ -1,4 +1,5 @@
 import numpy as np
+from orbmec.utils.clohessyWiltshireMatrix import *
 
 class TwoImpulseR:
 
@@ -24,37 +25,13 @@ class TwoImpulseR:
         self.dr0 = self.QXx @ self.dr.reshape(-1, 1)
         self.dv0_ = self.QXx @ self.dv.reshape(-1, 1)
 
-        self.phi_rr = self.__rr(self.n, self.t)
-        self.phi_rv = self.__rv(self.n, self.t)
-        self.phi_vr = self.__vr(self.n, self.t)
-        self.phi_vv = self.__vv(self.n, self.t)
+        self.phi_rr = rr(self.n, self.t)
+        self.phi_rv = rv(self.n, self.t)
+        self.phi_vr = vr(self.n, self.t)
+        self.phi_vv = vv(self.n, self.t)
 
         self.dv0p = - np.linalg.inv(self.phi_rv) @ self.phi_rr @ self.dr0
         self.dvf_ = (self.phi_vr @ self.dr0) + self.phi_vv @ self.dv0p
-
-    def __rr(self, n, t):
-        matrix = np.array([[4 - 3 * np.cos(n*t), 0, 0],
-                      [6 * (np.sin(n * t) - n* t), 1, 0],
-                      [0, 0, np.cos(n * t)]])
-        return matrix
-
-    def __rv(self, n, t):
-        matrix = np.array([[(1/n) * np.sin(n*t), (2/n) * (1 - np.cos(n * t)), 0],
-                      [(2/n) * (np.cos(n * t) - 1), (1/n) * (4* np.sin(n*t) - 3*n*t), 0],
-                      [0, 0, (1/n) * np.sin(n * t)]])
-        return matrix
-
-    def __vr(self, n, t):
-        matrix = np.array([[3 * n * np.sin(n * t), 0, 0],
-                      [6 * n * (np.cos(n * t) -1 ), 0, 0],
-                      [0, 0, -n * np.sin(n * t)]])
-        return matrix
-
-    def __vv(self, n, t):
-        matrix = np.array([[np.cos(n * t), 2 * np.sin(n * t), 0],
-                      [-2 * np.sin(n * t), 4 * np.cos(n * t) - 3, 0],
-                      [0, 0, np.cos(n * t)]])
-        return matrix
 
     @property
     def QXx_value(self):
@@ -120,7 +97,7 @@ class TwoImpulseR:
         return (np.linalg.norm(delta_v0) + np.linalg.norm(delta_vf)) * 1000
 
     def relative_position(self, t):
-        term1 = self.__rr(self.n, t) @ self.dr0
-        term2 = self.__rv(self.n, t) @ self.dv0p
+        term1 = rr(self.n, t) @ self.dr0
+        term2 = rv(self.n, t) @ self.dv0p
 
         return term1 + term2
