@@ -1,7 +1,7 @@
 import numpy as np
 from orbmec.utils.transformMatrix import *
 
-def angular_mo(mu, apogee, perigee):
+def angular_momentum(mu, apogee, perigee):
     return np.sqrt( 2 * mu) * np.sqrt((apogee*perigee)/(apogee+perigee))
 
 def QxX(omega, i, w):
@@ -78,11 +78,6 @@ def perigee_rad(h_mag, mu, e_mag):
 
 def apogee_rad(h_mag, mu, e_mag):
     return ((h_mag**2)/mu) * (1/(1 + e_mag * np.cos(np.deg2rad(180))))
-
-def angular_momentum(r, v):
-    h = np.cross(r, v)
-    h_mag = np.linalg.norm(h)
-    return h_mag
 
 def period(mu, semimajor):
     return (2*np.pi/np.sqrt(mu))* semimajor**(3/2) * (1/3600)

@@ -1,5 +1,5 @@
 import numpy as np
-from orbmec.utils.helper import angular_mo
+from orbmec.utils.helper import angular_momentum
 
 class Phasing:
 
@@ -10,7 +10,7 @@ class Phasing:
         self.mu = mu
         self.n = n
 
-        self.h1 = angular_mo(mu, ria, rip)
+        self.h1 = angular_momentum(mu, ria, rip)
 
         self.a1  = (1/2) * (ria+rip);
         self.t1  = ( (2*np.pi)/np.sqrt(mu) )*( self.a1**(3/2) )
@@ -26,7 +26,7 @@ class Phasing:
         self.a2 = ( (np.sqrt(mu)*self.t2)/(2*np.pi) )**(2/3)
 
         self.rpa = 2*self.a2 - rip
-        self.h2 = angular_mo(mu, rip, self.rpa)
+        self.h2 = angular_momentum(mu, rip, self.rpa)
 
         self.va1 = self.h1/rip
         self.va2 = self.h2/rip

@@ -12,6 +12,8 @@ class TestUtils(unittest.TestCase):
     mu = 398600
     e = 1.4
     phi = 30
+    ria = 13600
+    rip = 6800
 
     r = np.array([[-6045, -3490, 2500]])
     v = np.array([[-3.457, 6.618, 2.533]])
@@ -34,7 +36,7 @@ class TestUtils(unittest.TestCase):
     correct_apogee = 10292.725501794834
     correct_semimajor = 8788.095117377656
     correct_period = 2.2774604491192245
-    correct_h_mag = 58311.66993185606
+    correct_angular_momentum = 60116.33166896774
     correct_gibbs = (8001.43789952298, 60.000470277369566, 40.00144177286777, 0.10010369281339095, 30.074116831548118, 49.92565926551749)
 
     def test_position(self):
@@ -53,7 +55,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(apogee_rad(TestUtils.h_mag, TestUtils.mu, TestUtils.e_mag), TestUtils.correct_apogee)
 
     def test_angular_momentum(self):
-        self.assertEqual(angular_momentum(TestUtils.r, TestUtils.v), TestUtils.correct_h_mag)
+        self.assertEqual(angular_momentum(TestUtils.mu, TestUtils.ria, TestUtils.rip), TestUtils.correct_angular_momentum)
 
     def test_period(self):
         self.assertEqual(period(TestUtils.mu, TestUtils.semimajor), TestUtils.correct_period)
