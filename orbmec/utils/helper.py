@@ -4,9 +4,12 @@ from orbmec.utils.transformMatrix import *
 def angular_momentum(mu, apogee, perigee):
     return np.sqrt( 2 * mu) * np.sqrt((apogee*perigee)/(apogee+perigee))
 
+def QXx(omega, i, w):
+    return R_clockwise_yaw(w) @ R_clockwise_roll(i) @ R_clockwise_yaw(omega)
+
 def QxX(omega, i, w):
-    QXx = R_clockwise_yaw(w) @ R_clockwise_roll(i) @ R_clockwise_yaw(omega)
-    result = QXx.transpose()
+    temp = R_clockwise_yaw(w) @ R_clockwise_roll(i) @ R_clockwise_yaw(omega)
+    result = temp.transpose()
     return result
 
 def r_w(h, mu, e, phi):
