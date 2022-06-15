@@ -1,3 +1,3 @@
-from .hohmann import *
-from . phasing import *
-from .twoImpulseR import *
+from .hohmann import Hohmann
+from .phasing import Phasing
+from .twoImpulseR import TwoImpulseR
