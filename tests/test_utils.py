@@ -4,6 +4,7 @@ import unittest
 
 from orbmec.utils.helper import *
 from orbmec.utils.rkf45 import rkf45
+from orbmec.utils.gibbs import gibbs
 
 class TestUtils(unittest.TestCase):
     omega = 40
