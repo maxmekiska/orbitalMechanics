@@ -11,7 +11,7 @@ setup(
     description="Package that implements orbital mechanical concepts.",
     long_description=long_description,
     long_description_content_type='text/markdown',
-    name="Orbmec",
+    name="orbmec",
     version="0.1.0",
     packages = find_packages(include=["orbmec", "orbmec.*"]),
     install_requires=[

@@ -1,6 +1,6 @@
 # Orbital Mechanics
 
-Library that translates orbital mechanics concepts into code.
+Orbital mechanic concepts translated into code.
 
 
 

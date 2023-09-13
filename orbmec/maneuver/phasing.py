@@ -1,39 +1,48 @@
 import numpy as np
+
 from orbmec.utils.helper import angular_momentum
 
+
 class Phasing:
+    def __init__(
+        self,
+        ria: float,
+        rip: float,
+        target_theta: float,
+        n: int = 1,
+        mu: float = 398600,
+    ):
+        self.ria: float = ria
+        self.rip: float = rip
+        self.target_theta: float = np.deg2rad(target_theta)
+        self.mu: float = mu
+        self.n: int = n
 
-    def __init__(self, ria, rip, target_theta, n = 1, mu = 398600):
-        self.ria = ria
-        self.rip = rip
-        self.target_theta = np.deg2rad(target_theta)
-        self.mu = mu
-        self.n = n
+        self.h1: float = angular_momentum(mu, ria, rip)
 
-        self.h1 = angular_momentum(mu, ria, rip)
+        self.a1: float = (1 / 2) * (ria + rip)
+        self.t1: float = ((2 * np.pi) / np.sqrt(mu)) * (self.a1 ** (3 / 2))
+        self.e: float = (ria - rip) / (ria + rip)
 
-        self.a1  = (1/2) * (ria+rip);
-        self.t1  = ( (2*np.pi)/np.sqrt(mu) )*( self.a1**(3/2) )
-        self.e = (ria-rip) / (ria+rip)
+        self.Eb: float = 2 * np.arctan(
+            np.sqrt((1 - self.e) / (1 + self.e)) * np.tan(self.target_theta / 2)
+        )
 
-        self.Eb = 2 * np.arctan( np.sqrt( (1-self.e)/(1+self.e) ) * np.tan(self.target_theta/2) )
+        self.tab: float = (self.t1 / (2 * np.pi)) * (self.Eb - self.e * np.sin(self.Eb))
 
+        self.t2: float = self.t1 - (self.tab / self.n)
 
-        self.tab = (self.t1/(2*np.pi)) * (self.Eb - self.e*np.sin(self.Eb))
+        self.a2: float = ((np.sqrt(mu) * self.t2) / (2 * np.pi)) ** (2 / 3)
 
-        self.t2 = self.t1 - (self.tab/self.n)
+        self.rpa: float = 2 * self.a2 - rip
+        self.h2: float = angular_momentum(mu, rip, self.rpa)
 
-        self.a2 = ( (np.sqrt(mu)*self.t2)/(2*np.pi) )**(2/3)
-
-        self.rpa = 2*self.a2 - rip
-        self.h2 = angular_momentum(mu, rip, self.rpa)
-
-        self.va1 = self.h1/rip
-        self.va2 = self.h2/rip
+        self.va1: float = self.h1 / rip
+        self.va2: float = self.h2 / rip
 
     @property
-    def apogee_phasing_orbit(self):
+    def apogee_phasing_orbit(self) -> float:
         return self.rpa
 
-    def delta_v(self):
+    def delta_v(self) -> float:
         return abs(self.va1 - self.va2) + abs(self.va2 - self.va1)
